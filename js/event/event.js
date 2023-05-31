@@ -26,13 +26,25 @@ function getTagLine(event, minimumTicketCount, isPopular) {
   }
 }
 
-// function createEvent(name, price, availableTickets) {
-//   if (typeof name !== "string" || name.length >= 200) {
-//     throw new InvalidEventNameError("Event name cannot exceed 200 characters.")
-//   }
-// }
+function createEvent(name, price, availableTickets) {
+  if (typeof name !== "string" || name.length > 200) {
+     throw new InvalidEventNameError("Event name cannot exceed 200 characters")
+  }
+
+  if (typeof price !== "number" || price < 0) {
+    throw new InvalidEventPriceError("Event price must be more or equal to 0");
+  }
+
+  if (typeof availableTickets !== "number" || availableTickets < 1) {
+    throw new InvalidEventPriceError("Event tickets must be more than 0");
+  }
+
+  return new Event(null, name, price, availableTickets);
+}
 
 module.exports = {
-  getTagLine: getTagLine,
-  Event: Event
+  getTagLine,
+  Event,
+  isSoldOut,
+  createEvent,
 };
